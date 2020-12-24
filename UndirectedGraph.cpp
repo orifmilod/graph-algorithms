@@ -9,6 +9,7 @@ class UndirectedGraph {
 
 public:
   void addEdge(int nodeA, int nodeB);
+  void removeEdge(int nodeA, int nodeB);
   void printAllEdges();
 };
 
@@ -25,4 +26,9 @@ void UndirectedGraph::printAllEdges() {
     }
     cout << "\n";
   }
+}
+
+void UndirectedGraph::removeEdge(int nodeA, int nodeB) {
+  adjList[nodeA].erase(nodeB);
+  adjList[nodeB].erase(nodeA);
 }
