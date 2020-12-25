@@ -1,10 +1,10 @@
-#include "./UndirectedGraph.cpp"
+#include "./Graph.cpp"
 #include <iostream>
 
 using namespace std;
 
 int main() {
-  UndirectedGraph graph;
+  Graph graph;
 
   graph.addEdge(0, 1);
   graph.addEdge(0, 4);
