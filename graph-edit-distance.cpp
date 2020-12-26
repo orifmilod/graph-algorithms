@@ -4,7 +4,7 @@
 using namespace std;
 
 int main() {
-  Graph graph;
+  Graph graph(false);
 
   graph.addEdge(0, 1);
   graph.addEdge(0, 4);
