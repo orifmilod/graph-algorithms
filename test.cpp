@@ -9,17 +9,10 @@ using namespace std;
 #define print(x) cout << x << endl
 
 int main() {
-  set<string> a = {"a", "b"};
-  set<string> b = a;
-  a.erase("a");
+  set<int> a = {1, 2, 3, 4};
 
-  for (auto &item : b) {
+  for (const auto &item : a) {
     cout << item << endl;
   }
-
-  for (auto &item : a) {
-    cout << item << endl;
-  }
-
   return 0;
 }

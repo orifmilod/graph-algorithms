@@ -26,9 +26,19 @@ void backtrack(vector<unordered_map<int, string>> &allPossibilities,
     return;
   }
 
+  visited[currentNode] = true;
+
   // Get all possible colors for this node.
-    // Check if any color is left, maybe not enough colors
+  set<string> availableColors = allColors;
+  set<int> neighbours = graph.adjList.find(currentNode)->second;
+  for (const auto &neighbour : neighbours) {
+    auto neighbourColor = current.find(neighbour);
+    if (neighbourColor != current.end()) {
+      availableColors.erase(neighbourColor);
+    }
   }
+
+  // Check if any color is left, maybe not enough colors
 }
 
 vector<unordered_map<int, string>> possibleGraphColors(set<string> &allColors,
@@ -40,7 +50,8 @@ vector<unordered_map<int, string>> possibleGraphColors(set<string> &allColors,
 
   for (auto &it : graph.adjList) {
     if (visited.find(it.first) == visited.end()) {
-      backtrack(allPossibilities, currentColors, allColors, graph, it.first);
+      backtrack(allPossibilities, currentColors, allColors, graph, it.first,
+                visited);
     }
   }
 
