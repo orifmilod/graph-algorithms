@@ -9,17 +9,13 @@ using namespace std;
 #define print(x) cout << x << endl
 
 int main() {
-  set<string> a = {"a", "b"};
-  set<string> b = a;
-  a.erase("a");
+  int i = 0;
+  while (true) {
+    if (i == 5) {
+      break;
+    }
 
-  for (auto &item : b) {
-    cout << item << endl;
+    i++;
   }
-
-  for (auto &item : a) {
-    cout << item << endl;
-  }
-
-  return 0;
+  cout << "DONE" << endl;
 }

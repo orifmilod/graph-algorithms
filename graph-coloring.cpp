@@ -7,68 +7,118 @@
 
 using namespace std;
 
-// Get minimum number of colors to color the graph
+int getAvailableColor(unordered_map<int, int> &currentlyColored, Graph &graph,
+                      int &currentNode) {
 
-// Get all the possible graph coloring
+  set<int> neighbours = graph.adjList[currentNode];
 
-void backtrack(vector<unordered_map<int, string>> &allPossibilities,
-               unordered_map<int, string> current, set<string> &allColors,
-               Graph &graph, int currentNode,
-               unordered_map<int, bool> &visited) {
+  set<int> neighboursColor;
+  unordered_map<int, int>::const_iterator it;
 
-  if (visited.find(currentNode) != visited.end()) {
-    // Already visited this node
-    return;
+  for (const int &neighbour : neighbours) {
+    it = currentlyColored.find(neighbour);
+    if (it != currentlyColored.end()) {
+      neighboursColor.insert(it->second);
+    }
   }
 
-  if (current.size() == graph.numberOfNodes()) {
-    allPossibilities.push_back(current);
-    return;
+  int colorCode = 0;
+  set<int>::const_iterator setIterator;
+
+  // Increase the color code until we find a color which the neighbours does not
+  // use
+  while (true) {
+    setIterator = neighboursColor.find(colorCode);
+    if (setIterator == neighboursColor.end()) {
+      break;
+    }
+    colorCode++;
   }
 
+  return colorCode;
+}
+
+void backtrack(Graph &graph, unordered_map<int, int> &currentlyColored,
+               int currentNode) {
   // Get all possible colors for this node.
-    // Check if any color is left, maybe not enough colors
+  int newColor = getAvailableColor(currentlyColored, graph, currentNode);
+
+  // assign the color to the current vertex
+  currentlyColored[currentNode] = newColor;
+
+  // If colored all the nodes, then we are done!
+  if (currentlyColored.size() == graph.numberOfNodes()) {
+    return;
+  }
+
+  unordered_map<int, int>::const_iterator it;
+  for (const auto &neighbour : graph.adjList[currentNode]) {
+    it = currentlyColored.find(neighbour);
+    // If already colored the neighbouring node, dont go there
+    if (it != currentlyColored.end()) {
+      continue;
+    }
+    backtrack(graph, currentlyColored, neighbour);
   }
 }
 
-vector<unordered_map<int, string>> possibleGraphColors(set<string> &allColors,
-                                                       Graph graph) {
+unordered_map<int, int> color(Graph graph) {
+  int startingNode = 1;
 
-  vector<unordered_map<int, string>> allPossibilities;
-  unordered_map<int, string> currentColors;
-  unordered_map<int, bool> visited;
+  unordered_map<int, int> currentlyColored;
+  backtrack(graph, currentlyColored, startingNode);
 
-  for (auto &it : graph.adjList) {
-    if (visited.find(it.first) == visited.end()) {
-      backtrack(allPossibilities, currentColors, allColors, graph, it.first);
-    }
+  return currentlyColored;
+}
+
+
+unordered_map<int, set<int>> kPartite(Graph &graph) {
+
+  int startingNode = 1;
+  unordered_map<int, int> currentlyColored;
+
+  backtrack(graph, currentlyColored, startingNode);
+
+  unordered_map<int, set<int>> kPartite;
+  for (auto &it : currentlyColored) {
+    kPartite[it.second].insert(it.first);
   }
 
-  cout << allPossibilities.size() << endl;
-  for (int i = 0; i < allPossibilities.size(); i++) {
-    for (auto &item : allPossibilities[i]) {
-      cout << item.first << ":" << item.second << ", ";
-    }
-    cout << "\n";
-  }
+  return kPartite;
+}
 
-  return allPossibilities;
+// Get minimin number of colors needed to color the graph
+int minColor(Graph &graph) {
+  return kPartite(graph).size();
 }
 
 int main() {
   Graph graph(false);
-  // graph.addEdge(1, 2);
-  // set<string> colors = {"R", "B", "G"};
-
   graph.addEdge(1, 2);
   graph.addEdge(3, 2);
   graph.addEdge(3, 4);
   graph.addEdge(1, 4);
-  // graph.printAllEdges();
 
-  set<string> colors = {"B", "R", "G"};
+  // Minim number need to colors this graph is 2
+  cout << "Min color: " << minColor(graph) << endl;
+  cout << "\n \n";
 
-  possibleGraphColors(colors, graph);
+  // Split the graph into k partition
+  unordered_map<int, set<int>> kPartition = kPartite(graph);
+
+  for (auto &it : kPartition) {
+    cout << "Partition " << it.first << ": ";
+    for (const int &vertex : it.second) {
+      cout << vertex << ", ";
+    }
+    cout << "\n";
+  }
+  cout << "\n \n";
+
+  unordered_map<int, int> nodesColored = color(graph);
+  for (auto vertex : nodesColored) {
+    cout << "Vertex " << vertex.first << ":" << vertex.second << endl;
+  }
 
   return 0;
 }
