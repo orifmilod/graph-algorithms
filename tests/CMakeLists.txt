@@ -10,8 +10,10 @@ add_executable(${TEST_SUITE} ${TESTS})
 
 enable_testing()
 
-target_include_directories(${PROJECT_NAME}
+target_include_directories(${TEST_SUITE}
   PUBLIC ${PROJECT_SOURCE_DIR}/extern/googletest/googletest/include
 )
 
-#target_link_libraries(${PROJECT_NAME} PUBLIC gtest)
+target_link_libraries(${TEST_SUITE} PUBLIC gtest)
+
+add_test(NAME ${TEST_SUITE} COMMAND ${TEST_SUITE})
