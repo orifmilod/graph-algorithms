@@ -1,14 +1,15 @@
 cmake_minimum_required(VERSION 3.18.2)
 project(GraphAlgorithms)
 
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_EXTENSIONS OFF)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 add_executable(${PROJECT_NAME} main.cpp)
 
 # enable testing
 enable_testing()
 
-set(CMAKE_CXX_STANDARD 11)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_CXX_EXTENSIONS OFF)
+set(TEST_SUITE ${PROJECT_NAME}_test_suite)
 
 # adding subdirs 
 add_subdirectory(extern/googletest)
