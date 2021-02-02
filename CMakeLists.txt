@@ -11,6 +11,7 @@ add_executable(${PROJECT_NAME} main.cpp)
 enable_testing()
 
 set(TEST_SUITE ${PROJECT_NAME}_test_suite)
+set(SOURCE_SUITE ${PROJECT_NAME}_src_suite)
 
 # adding subdirs 
 add_subdirectory(extern/googletest)

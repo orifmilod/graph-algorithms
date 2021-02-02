@@ -1,21 +1,7 @@
+#include "Graph.h"
 #include <iostream>
 #include <set>
 #include <unordered_map>
-
-using namespace std;
-
-class Graph {
-  bool isDirectredGraph;
-
-public:
-  unordered_map<int, set<int>> adjList;
-  Graph(bool isDirectredGraph);
-
-  void addEdge(int nodeA, int nodeB);
-  void removeEdge(int nodeA, int nodeB);
-  void printAllEdges();
-  int numberOfNodes();
-};
 
 int Graph::numberOfNodes() { return adjList.size(); }
 
@@ -28,12 +14,12 @@ void Graph::addEdge(int nodeA, int nodeB) {
 
 void Graph::printAllEdges() {
   for (auto &it : adjList) {
-    cout << it.first << ": ";
+    std::cout << it.first << ": ";
 
     for (auto &node : adjList[it.first]) {
-      cout << node << ", ";
+      std::cout << node << ", ";
     }
-    cout << "\n";
+    std::cout << "\n";
   }
 }
 
