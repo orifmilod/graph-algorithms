@@ -12,3 +12,4 @@ add_executable(${SOURCE_SUITE} ${SOURCE})
 target_include_directories(${SOURCE_SUITE} 
   PUBLIC ${PROJECT_SOURCE_DIR}/include
 )
+

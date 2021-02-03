@@ -7,8 +7,8 @@
 
 using namespace std;
 
-int getAvailableColor(unordered_map<int, int> &currentlyColored, Graph &graph,
-                      int &currentNode) {
+int Graph::getAvailableColor(unordered_map<int, int> &currentlyColored,
+                             Graph &graph, int &currentNode) {
 
   set<int> neighbours = graph.adjList[currentNode];
 
@@ -38,8 +38,8 @@ int getAvailableColor(unordered_map<int, int> &currentlyColored, Graph &graph,
   return colorCode;
 }
 
-void backtrack(Graph &graph, unordered_map<int, int> &currentlyColored,
-               int currentNode) {
+void Graph::backtrack(Graph &graph, unordered_map<int, int> &currentlyColored,
+                      int currentNode) {
   // Get all possible colors for this node.
   int newColor = getAvailableColor(currentlyColored, graph, currentNode);
 
@@ -62,7 +62,7 @@ void backtrack(Graph &graph, unordered_map<int, int> &currentlyColored,
   }
 }
 
-unordered_map<int, int> color(Graph graph) {
+unordered_map<int, int> Graph::color(Graph graph) {
   int startingNode = 1;
 
   unordered_map<int, int> currentlyColored;
@@ -71,8 +71,7 @@ unordered_map<int, int> color(Graph graph) {
   return currentlyColored;
 }
 
-
-unordered_map<int, set<int>> kPartite(Graph &graph) {
+unordered_map<int, set<int>> Graph::kPartite(Graph &graph) {
 
   int startingNode = 1;
   unordered_map<int, int> currentlyColored;
@@ -88,12 +87,10 @@ unordered_map<int, set<int>> kPartite(Graph &graph) {
 }
 
 // Get minimin number of colors needed to color the graph
-int minColor(Graph &graph) {
-  return kPartite(graph).size();
-}
+int minColor(Graph &graph) { return kPartite(graph).size(); }
 
 int main() {
-  Graph graph(false);
+  Graph graph();
   graph.addEdge(1, 2);
   graph.addEdge(3, 2);
   graph.addEdge(3, 4);

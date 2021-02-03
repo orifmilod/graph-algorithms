@@ -1,5 +1,5 @@
 set(TESTS
-  bipartite-graph.cpp
+  GraphColoring.cpp
 )
 
 set(CMAKE_CXX_STANDARD 11)
@@ -12,8 +12,7 @@ enable_testing()
 
 target_include_directories(${TEST_SUITE}
   PUBLIC ${PROJECT_SOURCE_DIR}/extern/googletest/googletest/include
+  PUBLIC ${PROJECT_SOURCE_DIR}/include
 )
 
 target_link_libraries(${TEST_SUITE} PUBLIC gtest)
-
-add_test(NAME ${TEST_SUITE} COMMAND ${TEST_SUITE})
