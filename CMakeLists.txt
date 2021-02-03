@@ -11,7 +11,6 @@ add_executable(${PROJECT_NAME} main.cpp)
 enable_testing()
 
 set(TEST_SUITE ${PROJECT_NAME}_test_suite)
-set(SOURCE_SUITE ${PROJECT_NAME}_src_suite)
 
 # adding subdirs 
 add_subdirectory(extern/googletest)
@@ -21,6 +20,11 @@ add_subdirectory(src)
 target_include_directories(${PROJECT_NAME}
   PUBLIC extern/googletest/googletest/include
   PUBLIC extern/googletest/googlemock/include
+)
+
+include_directories(
+  ${PROJECT_SOURCE_DIR}/include
+  ${PROJECT_SOURCE_DIR}/src
 )
 
 target_link_libraries(${PROJECT_NAME}

@@ -1,7 +1,8 @@
-#include "Graph.h"
 #include <iostream>
 #include <set>
 #include <unordered_map>
+
+#include "../include/Graph.h"
 
 int Graph::numberOfNodes() { return adjList.size(); }
 
