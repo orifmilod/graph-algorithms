@@ -1,6 +1,7 @@
-#include <gtest/gtest.h>
+#include "include/Graph.h"
 #include <iostream>
 
-using namespace std;
-
-int main() { return 0; }
+int main() {
+  std::cout << "Graph algorithms! \n";
+  return 0;
+}

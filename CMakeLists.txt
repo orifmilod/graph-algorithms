@@ -5,28 +5,24 @@ set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+set(LIBRARY_NAME Engine)
+
+set(SOURCES
+  src/Graph.cpp
+  src/GraphColoring.cpp
+)
+
+add_library(${LIBRARY_NAME} OBJECT ${SOURCES})
+target_include_directories(${LIBRARY_NAME}
+  PUBLIC ${PROJECT_SOURCE_DIR}
+)
+
+
 add_executable(${PROJECT_NAME} main.cpp)
+target_link_libraries(${PROJECT_NAME}
+  PRIVATE ${LIBRARY_NAME}
+)
+
 
 # enable testing
 enable_testing()
-
-set(TEST_SUITE ${PROJECT_NAME}_test_suite)
-
-# adding subdirs 
-add_subdirectory(extern/googletest)
-add_subdirectory(tests)
-add_subdirectory(src)
-
-target_include_directories(${PROJECT_NAME}
-  PUBLIC extern/googletest/googletest/include
-  PUBLIC extern/googletest/googlemock/include
-)
-
-include_directories(
-  ${PROJECT_SOURCE_DIR}/include
-  ${PROJECT_SOURCE_DIR}/src
-)
-
-target_link_libraries(${PROJECT_NAME}
-  PRIVATE gtest
-)

@@ -1,4 +1,4 @@
-#include "../include/GraphColoring.h"
+#include "include/GraphColoring.h"
 #include <iostream>
 #include <set>
 #include <string>

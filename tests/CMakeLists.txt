@@ -15,4 +15,11 @@ target_include_directories(${TEST_SUITE}
   PUBLIC ${PROJECT_SOURCE_DIR}/include
 )
 
-target_link_libraries(${TEST_SUITE} PUBLIC gtest)
+target_link_directories(${TEST_SUITE}
+  PUBLIC ${PROJECT_SOURCE_DIR}/extern/googletest/googletest/include
+)
+
+target_link_libraries(${TEST_SUITE} 
+  PUBLIC gtest
+  PUBLIC ${PROJECT_SOURCE_DIR}/include
+)

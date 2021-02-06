@@ -1,8 +1,8 @@
 #include <gtest/gtest.h>
 #include <iostream>
 
-#include "../include/Graph.h"
-#include "../include/GraphColoring.h"
+#include "include/Graph.h"
+#include "include/GraphColoring.h"
 
 using namespace std;
 
@@ -18,6 +18,6 @@ TEST(GraphColoring, ColorCardinality) {
 }
 
 int main() {
-  testing::InitGoogleTest();
+  ::testing::InitGoogleTest();
   return RUN_ALL_TESTS();
 }
